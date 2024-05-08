@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { registerCompany, authCompany } from './api';
+import React, { useState, useEffect } from 'react';
+import { registerCompany, authCompany, fetchProducts} from './api';
 
 const AllProducts = () => {
     const [register, setRegister] = useState('');
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
     //For First Registration
 
@@ -23,6 +26,21 @@ const AllProducts = () => {
     //     }
     // };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchProducts('AMZ', 'Laptop', 10, 1, 10000);
+                setProducts(data);
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const handleAuth = async () => {
         try {
             const res = await authCompany(
@@ -40,12 +58,15 @@ const AllProducts = () => {
             console.error(error);
         }
     };
+    handleAuth()
+
+
 
     return (
         <div>
             {/* <button onClick={handleRegister}>Register</button> */}
-            <p>{register}</p>
-            <button onClick={handleAuth}>Register</button>
+            {/* <p>{register}</p> */}
+            {/* <button onClick={handleAuth}>Register</button> */}
 
         </div>
     );
