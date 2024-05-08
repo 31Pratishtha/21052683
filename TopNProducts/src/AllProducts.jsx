@@ -5,6 +5,7 @@ const AllProducts = () => {
     const [register, setRegister] = useState('');
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [accessToken, setAccessToken] = useState('')
 
 
     //For First Registration
@@ -29,7 +30,7 @@ const AllProducts = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchProducts('AMZ', 'Laptop', 10, 1, 10000);
+                const data = await fetchProducts('AMZ', 'Laptop', 10, 1, 10000, accessToken);
                 setProducts(data);
                 setLoading(false);
             } catch (error) {
@@ -52,6 +53,7 @@ const AllProducts = () => {
                 '21052683',
             );
             setRegister('Registration successful');
+            setAccessToken(res.access_token)
             console.log(res);
         } catch (error) {
             setRegister('Registration failed');

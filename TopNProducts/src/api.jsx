@@ -48,9 +48,6 @@ export const authCompany = async (
   }
 };
 
-export const ACCESS_TOKEN =
-  "FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzE1MTQ4OTU3LCJpYXQiOjE3MTUxNDg2NTcsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjNiOTViNGE2LWIzN2EtNDkyMS1hODdhLWQzODg1ZmE4ZDhkMSIsInN1YiI6IjIxMDUyNjgzQGtpaXQuYWMuaW4ifSwiY29tcGFueU5hbWUiOiJnb01hcnQiLCJjbGllbnRJRCI6IjNiOTViNGE2LWIzN2EtNDkyMS1hODdhLWQzODg1ZmE4ZDhkMSIsImNsaWVudFNlY3JldCI6InJUTVlQUVZSaHdOR2x5RVAiLCJvd25lck5hbWUiOiJQcmF0aXNodGhhIiwib3duZXJFbWFpbCI6IjIxMDUyNjgzQGtpaXQuYWMuaW4iLCJyb2xsTm8iOiIyMTA1MjY4MyJ9.flFNuG94MgX-_S9N7uEq3amQo6F8MVAjHqRb-Ieqy-Q";
-
 export const fetchProducts = async (
   companyName,
   category,
@@ -61,13 +58,8 @@ export const fetchProducts = async (
 ) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/companies/:${companyName}/categories/:${category}/products`,
+      `${BASE_URL}/companies/:${companyName}/categories/:${category}/products?top=${top}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
       {
-        params: {
-          top: top,
-          minPrice: minPrice,
-          maxPrice: maxPrice,
-        },
         headers: {
           Authorization: `${accessToken}`,
         },
